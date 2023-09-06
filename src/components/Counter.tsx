@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { getClicks, click } from '../blockchain/web3/web3client';
+import { getClicks, click, reset } from '../blockchain/web3/web3client';
 import { connectWallet } from '../blockchain/web3/web3client';
 import { connect } from 'http2';
+import contractAddress from '../blockchain/constants/address';
 
 type Props = {};
 
 export default function Counter({}: Props) {
-  const [clicks, setClicks] = useState(0)
-  const [wallet, setWallet] = useState('')
+  const [clicks, setClicks] = useState(0);
+  const [wallet, setWallet] = useState('');
 
   useEffect(() => {
     getClicks().then(res => {
@@ -15,24 +16,25 @@ export default function Counter({}: Props) {
     });
   }, []);
 
-  const handleSelectWallet = async()=>{
-    await connectWallet().then(res=>{
-      setWallet(res.address)
-    })
-  }
+  const handleSelectWallet = async () => {
+    await connectWallet().then(res => {
+      setWallet(res.address);
+    });
+  };
+
+  const handleClick = async () => {
+    await click(contractAddress, wallet);
+  };
 
   return (
     <div>
-      <button onClick={() => getClicks()}>Click</button> 
-      <button onClick={() => click()}>Click to increase</button>
-      <br/>
+      <button onClick={handleClick}>Click to increase</button>
+      <br />
       {clicks}
-      <br/>
-      <button>Reset</button>
+      <br />
+      <button onClick={() => reset(contractAddress, wallet)}>Reset</button>
       <button onClick={handleSelectWallet}>Connect to Wallee</button>
-      <p>
-        Currently connected address: {wallet}
-      </p>
+      <p>Currently connected address: {wallet}</p>
     </div>
   );
 }
