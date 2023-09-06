@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getClicks } from '../blockchain/web3/web3client';
+import { getClicks, click } from '../blockchain/web3/web3client';
 import { connectWallet } from '../blockchain/web3/web3client';
 import { connect } from 'http2';
 
@@ -7,7 +7,7 @@ type Props = {};
 
 export default function Counter({}: Props) {
   const [clicks, setClicks] = useState(0)
-  const [wallets, setWallets] = useState<string[]>([])
+  const [wallet, setWallet] = useState('')
 
   useEffect(() => {
     getClicks().then(res => {
@@ -15,19 +15,24 @@ export default function Counter({}: Props) {
     });
   }, []);
 
+  const handleSelectWallet = async()=>{
+    await connectWallet().then(res=>{
+      setWallet(res.address)
+    })
+  }
+
   return (
     <div>
       <button onClick={() => getClicks()}>Click</button> 
+      <button onClick={() => click()}>Click to increase</button>
       <br/>
       {clicks}
       <br/>
       <button>Reset</button>
-      <button onClick={() => connectWallet()}>Connect to Wallee</button>
-      <ul>
-        {/* {wallets.map(w=>{
-          <li>{w}</li>
-        })} */}
-      </ul>
+      <button onClick={handleSelectWallet}>Connect to Wallee</button>
+      <p>
+        Currently connected address: {wallet}
+      </p>
     </div>
   );
 }
