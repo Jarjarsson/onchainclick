@@ -1,10 +1,9 @@
-import Web3, { Web3Eth } from 'web3';
-import { Contract } from 'web3-eth-contract';
+import Web3 from 'web3';
 import abi from '../constants/abi';
 import contractAddress from '../constants/address';
-import { Window } from '../../type';
-import { ethers } from 'ethers';
-import { useState } from 'react';
+
+// npm i web3-eth-contract
+
 
 // const web3 = new Web3('http://localhost:8545');
 const web3 = new Web3(
