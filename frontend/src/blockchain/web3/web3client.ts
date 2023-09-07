@@ -35,12 +35,12 @@ const click = async (contractAddress: string, address: string) => {
   }
 };
 
-const getClicks = async () => {
-  const data = (await clicker.methods.clickedCount().call()) as bigint;
-  /* Catch the bigInt and transform it into a number */
-
-  return parseInt(data.toString()[0]);
-};
+  // const getClicks = async () => {
+  //   const data = (await clicker.methods.clickedCount().call()) as any;
+  //   /* Catch the bigInt and transform it into a number */
+    
+  //   return data;
+  // };
 
 const reset = async (contractAddress: string, address: string) => {
   //set up transaction parameters
@@ -91,10 +91,11 @@ const connectWallet = async () => {
   }
 };
 
+
 const changeValue = (callback: (event: number) => void) => {
   clicker.events.Count().on('data' as any, (event: any) => {
     callback(Number(event.returnValues.count));
   });
 };
 
-export { click, getClicks, connectWallet, reset, changeValue };
+export { click,  connectWallet, reset, changeValue };
