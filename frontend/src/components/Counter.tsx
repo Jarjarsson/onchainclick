@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
- // getClicks,
+ getClicks,
   click,
   reset,
   changeValue,
@@ -14,10 +14,10 @@ export default function Counter() {
 
   useEffect(() => {
     changeValue(setClicks)
-    // getClicks().then(res => {
-    //   setClicks(Number(res));
+    getClicks().then(res => {
+      setClicks(Number(res));
 
-    // });
+    });
   }, []);
 
   const handleSelectWallet = async () => {
