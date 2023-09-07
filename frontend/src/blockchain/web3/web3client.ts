@@ -4,7 +4,6 @@ import contractAddress from '../constants/address';
 
 // npm i web3-eth-contract
 
-
 // const web3 = new Web3('http://localhost:8545');
 const web3 = new Web3(
   'wss://eth-goerli.g.alchemy.com/v2/Ka3TSKFVasQ8sQNXkcnEaaO69XIO0nUW'
@@ -41,8 +40,7 @@ const getClicks = async () => {
   return Number(data);
 };
 
-const reset = async (contractAddress: string, address : string) => {
-
+const reset = async (contractAddress: string, address: string) => {
   //set up transaction parameters
   const transactionParameters = {
     to: contractAddress, // Required except during contract publications.
@@ -91,4 +89,11 @@ const connectWallet = async () => {
   }
 };
 
-export { click, getClicks, connectWallet, reset };
+
+const changeValue = (callback: (event: number) => void) => {
+  clicker.events.Count().on('data' as any, (event: any) => {
+    callback(Number(event.returnValues.count));
+  });
+};
+
+export { click, getClicks, connectWallet, reset, changeValue };

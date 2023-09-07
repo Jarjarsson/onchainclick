@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
-import { getClicks, click, reset } from '../blockchain/web3/web3client';
+import {
+  getClicks,
+  click,
+  reset,
+  changeValue,
+} from '../blockchain/web3/web3client';
 import { connectWallet } from '../blockchain/web3/web3client';
 import contractAddress from '../blockchain/constants/address';
 
@@ -8,8 +13,10 @@ export default function Counter() {
   const [wallet, setWallet] = useState('');
 
   useEffect(() => {
+    changeValue(setClicks)
     getClicks().then(res => {
       setClicks(res);
+
     });
   }, []);
 
@@ -30,7 +37,7 @@ export default function Counter() {
       {clicks}
       <br />
       <button onClick={() => reset(contractAddress, wallet)}>Reset</button>
-      <button onClick={handleSelectWallet}>Connect to Wallee</button>
+      <button onClick={handleSelectWallet}>Connect to Wallet</button>
       <p>Currently connected address: {wallet}</p>
     </div>
   );
