@@ -39,7 +39,7 @@ const getClicks = async () => {
   const data = (await clicker.methods.clickedCount().call()) as bigint;
   /* Catch the bigInt and transform it into a number */
 
-  return data;
+  return parseInt(data.toString()[0]);
 };
 
 const reset = async (contractAddress: string, address: string) => {
@@ -90,7 +90,6 @@ const connectWallet = async () => {
     };
   }
 };
-
 
 const changeValue = (callback: (event: number) => void) => {
   clicker.events.Count().on('data' as any, (event: any) => {
