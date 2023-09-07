@@ -15,7 +15,7 @@ export default function Counter() {
   useEffect(() => {
     changeValue(setClicks)
     getClicks().then(res => {
-      setClicks(res);
+      setClicks(Number(res));
 
     });
   }, []);

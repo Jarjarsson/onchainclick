@@ -37,7 +37,9 @@ const click = async (contractAddress: string, address: string) => {
 
 const getClicks = async () => {
   const data = (await clicker.methods.clickedCount().call()) as bigint;
-  return Number(data);
+  /* Catch the bigInt and transform it into a number */
+
+  return data;
 };
 
 const reset = async (contractAddress: string, address: string) => {
