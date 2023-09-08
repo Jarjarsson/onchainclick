@@ -10,6 +10,7 @@ import contractAddress from "../blockchain/constants/address";
 import "../index.css";
 import mainLogo from "../assets/Logo.png";
 import { cropWallet } from "../utils/utils";
+import { Link } from "react-router-dom";
 
 export default function Counter() {
   const [clicks, setClicks] = useState(0);
@@ -35,27 +36,29 @@ export default function Counter() {
   };
 
   return (
-    <main className="flex w-screen h-screen justify-center items-center">
-      <div className="flex gap-3">
-        <img
-          src={mainLogo}
-          alt="onchainbet logo"
-          className="object-fit h-[12rem]"
-        ></img>
-        <div className="flex flex-col gap-2 bg-1 h-[12rem]">
+    <div className="flex w-screen h-screen justify-center items-center w-50 select-none">
+      <div className="flex gap-3 bg-cc3/50 shadow-inner p-3">
+        <a href="https://github.com/Jarjarsson/onchainbet">
+          <img
+            src={mainLogo}
+            alt="onchainbet logo"
+            className="object-fit h-[12rem]"
+          ></img>
+        </a>
+        <div className="flex flex-col gap-2 bg-1 h-[12rem] w-0.6">
           <div className="flex items-center gap-4 bg-cc1/50 p-2 text-cc2 grow">
-            <p>Count of clicks: {clicks}</p>
+            <p>Number of clicks: {clicks}</p>
 
             <div className="flex flex-col gap-2">
               <button
                 onClick={handleClick}
-                className="bg-cc1 text-cc2 px-2 rounded-md hover:opacity-50"
+                className="bg-cc1 text-cc2 px-2 rounded-md hover:opacity-50 border-none"
               >
                 Increase
               </button>
               <button
                 onClick={() => reset(contractAddress, wallet)}
-                className="bg-cc1 text-cc2 px-2 rounded-md hover:opacity-50"
+                className="bg-cc1 text-cc2 px-2 rounded-md hover:opacity-50 border-none"
               >
                 Reset
               </button>
@@ -65,7 +68,7 @@ export default function Counter() {
           <div className="flex flex-col bg-cc1/50 gap-2 p-2 grow justify-evenly">
             <button
               onClick={handleSelectWallet}
-              className="bg-cc1 text-cc2 px-2 rounded-md hover:opacity-50"
+              className="bg-cc1 text-cc2 px-2 rounded-md hover:opacity-50 border-none"
             >
               Connect wallet
             </button>
@@ -77,6 +80,6 @@ export default function Counter() {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

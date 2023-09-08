@@ -7,6 +7,7 @@ function App() {
       style={{
         backgroundImage: `url(${background})`,
         backgroundSize: "cover",
+        position: "relative",
       }}
     >
       <Counter />
