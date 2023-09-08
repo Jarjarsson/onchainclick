@@ -2,9 +2,6 @@ import Web3 from 'web3';
 import abi from '../constants/abi';
 import contractAddress from '../constants/address';
 
-// npm i web3-eth-contract
-
-// const web3 = new Web3('http://localhost:8545');
 const web3 = new Web3(
   'wss://eth-goerli.g.alchemy.com/v2/Ka3TSKFVasQ8sQNXkcnEaaO69XIO0nUW'
 );
@@ -12,14 +9,12 @@ const web3 = new Web3(
 const clicker = new web3.eth.Contract(abi, contractAddress);
 
 const click = async (contractAddress: string, address: string) => {
-  //set up transaction parameters
   const transactionParameters = {
-    to: contractAddress, // Required except during contract publications.
-    from: address, // must match user's active address.
+    to: contractAddress,
+    from: address,
     data: clicker.methods.click().encodeABI(),
   };
 
-  //sign the transaction
   try {
     const txHash = await (window as any).ethereum.request({
       method: 'eth_sendTransaction',
@@ -30,27 +25,23 @@ const click = async (contractAddress: string, address: string) => {
     };
   } catch (error) {
     return {
-      status: '😥 Oh no something went wrong',
+      status: 'Something went wrong',
     };
   }
 };
 
 const getClicks = async () => {
   const data = (await clicker.methods.clickedCount().call()) as any;
-  /* Catch the bigInt and transform it into a number */
-
   return data;
 };
 
 const reset = async (contractAddress: string, address: string) => {
-  //set up transaction parameters
   const transactionParameters = {
-    to: contractAddress, // Required except during contract publications.
-    from: address, // must match user's active address.
+    to: contractAddress,
+    from: address,
     data: clicker.methods.reset().encodeABI(),
   };
 
-  //sign the transaction
   try {
     const txHash = await (window as any).ethereum.request({
       method: 'eth_sendTransaction',
@@ -61,7 +52,7 @@ const reset = async (contractAddress: string, address: string) => {
     };
   } catch (error) {
     return {
-      status: '😥 Oh no something went wrong',
+      status: 'Something went wrong',
     };
   }
 };
@@ -73,20 +64,20 @@ const connectWallet = async () => {
         method: 'eth_requestAccounts',
       });
       const obj = {
-        status: 'Successfully connected!',
+        connected: true,
         address: addressArray[0],
       };
       return obj;
     } catch (err) {
       return {
         address: '',
-        status: 'ERROR!',
+        connected: false,
       };
     }
   } else {
     return {
       address: '',
-      status: 'You need to install metamask noob',
+      connected: false,
     };
   }
 };
