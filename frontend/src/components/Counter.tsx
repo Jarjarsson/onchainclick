@@ -10,7 +10,6 @@ import contractAddress from "../blockchain/constants/address";
 import "../index.css";
 import mainLogo from "../assets/Logo.png";
 import { cropWallet } from "../utils/utils";
-import { Link } from "react-router-dom";
 
 export default function Counter() {
   const [clicks, setClicks] = useState(0);
