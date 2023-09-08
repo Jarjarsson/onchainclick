@@ -10,7 +10,6 @@ import contractAddress from "../blockchain/constants/address";
 import "../index.css";
 import mainLogo from "../assets/Logo.png";
 import { cropWallet } from "../utils/utils";
-import Footer from "./Footer";
 
 export default function Counter() {
   const [clicks, setClicks] = useState(0);
@@ -56,13 +55,13 @@ export default function Counter() {
 
               <div className="flex flex-col gap-2">
                 <button
-                  onClick={handleReset}
+                  onClick={handleIncrease}
                   className="bg-cc1 text-cc2 px-2 rounded-md hover:opacity-50 border-none"
                 >
                   Increase
                 </button>
                 <button
-                  onClick={handleIncrease}
+                  onClick={handleReset}
                   className="bg-cc1 text-cc2 px-2 rounded-md hover:opacity-50 border-none"
                 >
                   Reset
