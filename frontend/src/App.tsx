@@ -1,10 +1,16 @@
-import Counter from './components/Counter';
+import Counter from "./components/Counter";
+import background from "./assets/bg.jpg";
 
 function App() {
   return (
-    <div className="App">
+    <main
+      style={{
+        backgroundImage: `url(${background})`,
+        backgroundSize: "cover",
+      }}
+    >
       <Counter />
-    </div>
+    </main>
   );
 }
 export default App;

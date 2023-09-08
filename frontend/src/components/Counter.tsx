@@ -1,29 +1,30 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
   getClicks,
   click,
   reset,
   changeValue,
-} from '../blockchain/web3/web3client';
-import { connectWallet } from '../blockchain/web3/web3client';
-import contractAddress from '../blockchain/constants/address';
-import '../index.css';
-import mainLogo from '../assets/Logo.png';
+} from "../blockchain/web3/web3client";
+import { connectWallet } from "../blockchain/web3/web3client";
+import contractAddress from "../blockchain/constants/address";
+import "../index.css";
+import mainLogo from "../assets/Logo.png";
+import { cropWallet } from "../utils/utils";
 
 export default function Counter() {
   const [clicks, setClicks] = useState(0);
-  const [wallet, setWallet] = useState('');
+  const [wallet, setWallet] = useState("");
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
     changeValue(setClicks);
-    getClicks().then(res => {
+    getClicks().then((res) => {
       setClicks(Number(res));
     });
   }, []);
 
   const handleSelectWallet = async () => {
-    await connectWallet().then(res => {
+    await connectWallet().then((res) => {
       setWallet(res.address);
       setConnected(res.connected);
     });
@@ -34,32 +35,48 @@ export default function Counter() {
   };
 
   return (
-    <div className="w-screen h-screen flex  justify-center items-center">
-      <img src={mainLogo} className="h-[96px] w-[96px] object-cover"></img>
-      <div className='flex flex-col'>
-      <div className='flex items-center'>
-        
-          <p>Count of clicks: {clicks}</p>
-        
-        <div className='flex flex-col'>
-          <button onClick={handleClick}>Increase</button>
-          <button onClick={() => reset(contractAddress, wallet)}>Reset</button>
-        </div>
-      
-      </div>
+    <main className="flex w-screen h-screen justify-center items-center">
+      <div className="flex gap-3">
+        <img
+          src={mainLogo}
+          alt="onchainbet logo"
+          className="object-fit h-[12rem]"
+        ></img>
+        <div className="flex flex-col gap-2 bg-1 h-[12rem]">
+          <div className="flex items-center gap-4 bg-cc1/50 p-2 text-cc2 grow">
+            <p>Count of clicks: {clicks}</p>
 
-      <div className="flex flex-col">
-        <button onClick={handleSelectWallet}>Connect wallet</button>
-        {connected && (
-          <p>
-            Current address:
-            {wallet.substring(0, 4) +
-              '...' +
-              wallet.substring(wallet.length - 4, wallet.length)}
-          </p>
-        )}
+            <div className="flex flex-col gap-2">
+              <button
+                onClick={handleClick}
+                className="bg-cc1 text-cc2 px-2 rounded-md hover:opacity-50"
+              >
+                Increase
+              </button>
+              <button
+                onClick={() => reset(contractAddress, wallet)}
+                className="bg-cc1 text-cc2 px-2 rounded-md hover:opacity-50"
+              >
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <div className="flex flex-col bg-cc1/50 gap-2 p-2 grow justify-evenly">
+            <button
+              onClick={handleSelectWallet}
+              className="bg-cc1 text-cc2 px-2 rounded-md hover:opacity-50"
+            >
+              Connect wallet
+            </button>
+            {connected && (
+              <p className="text-cc2">
+                {"Current address: " + cropWallet(wallet)}
+              </p>
+            )}
+          </div>
+        </div>
       </div>
-      </div>
-    </div>
+    </main>
   );
 }
